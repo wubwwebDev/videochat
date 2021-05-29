@@ -1,6 +1,6 @@
 # Dyte Next.js Example
 
-A video conferencing app built on top of Dyte
+A video conferencing app built on top of [Dyte](https://www.dyte.in/)
 <br />
 
 ## About the Project

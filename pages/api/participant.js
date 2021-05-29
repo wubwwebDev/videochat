@@ -13,7 +13,6 @@ export default async (req, res) => {
       name: `user-${randId}`,
     },
   };
-  console.log(JSON.stringify(reqBody));
   const joinMeetingResp = await fetch(
     `${baseUrl}/v1/organizations/${orgId}/meetings/${meetingId}/participant`,
     {

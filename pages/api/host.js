@@ -14,7 +14,6 @@ export default async (req, res) => {
     },
     roleName: "host",
   };
-  console.log(JSON.stringify(reqBody));
   const joinMeetingResp = await fetch(
     `${baseUrl}/v1/organizations/${orgId}/meetings/${meetingId}/participant`,
     {

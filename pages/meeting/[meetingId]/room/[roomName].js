@@ -59,7 +59,6 @@ export default function Meeting({ org, base }) {
 }
 
 export async function getServerSideProps(context) {
-  console.log(process.env);
   return {
     props: {
       org: process.env.NEXT_PUBLIC_ORG_ID,

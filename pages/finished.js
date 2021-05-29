@@ -26,7 +26,6 @@ export default function Home() {
 
   useEffect(() => {
     getAllMeetings();
-    console.log(meetings);
   }, []);
 
   const joinAsHost = async (meetingId, roomName) => {
