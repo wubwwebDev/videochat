@@ -1,23 +1,52 @@
-# Next.js + Tailwind CSS Example
+# Dyte Next.js Example
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) (v2.1) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+A video conferencing app built on top of Dyte
+<br />
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+## About the Project
 
-## Deploy your own
+I wanted to build a serverless Next.js version of Dyte's [react example](https://github.com/dyte-in/react-integration-example)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Built with
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
 
-## How to use
+- [Next.js](https://nextjs.org/)
+- [dyte-client](https://www.npmjs.com/package/dyte-client)
+- [tailwindcss](https://tailwindcss.com/)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## Getting Started
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+
+Make sure you get your organisation id and API key from Dyte by signing up [here](https://dev.dyte.in/)
+
+#### Installation
+
+1. Clone the repo
+
+```sh
+git clone https://github.com/anmolm96/dyte-nextjs-example
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+2. Install packages
+
+```sh
+yarn
+```
+
+3. Create an `.env` file with your credentials. Use `.env.example` as a template.
+
+4. Run the application
+
+```sh
+yarn run dev
+```
+
+## Deploy
+
+Setup and deploy your project on Vercel by running the following command.
+
+Make sure you have your env variables set on the project in Vercel too -> [More information](https://vercel.com/docs/environment-variables)
+
+```sh
+vercel
+```
