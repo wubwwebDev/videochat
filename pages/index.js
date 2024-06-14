@@ -13,6 +13,8 @@ export default function Home() {
         title: meetingTitle,
       }),
     });
+
+    console.log("this is meeting Resp:::", meetingResp);
     const meeting = await meetingResp.json();
     setMeetingTitle("");
     await getAllMeetings();
@@ -29,6 +31,7 @@ export default function Home() {
   }, []);
 
   const joinAsHost = async (meetingId, roomName) => {
+    console.log(meetingId, roomName);
     const joinAsHostResp = await fetch("/api/host", {
       method: "POST",
       body: JSON.stringify({
@@ -36,10 +39,10 @@ export default function Home() {
       }),
     });
     const { auth } = await joinAsHostResp.json();
-    sessionStorage.setItem("auth", auth);
+    console.log("this is auth:", auth);
+    sessionStorage.setItem("auth", auth?.data?.token);
     router.push(`/meeting/${meetingId}/room/${roomName}`);
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -70,7 +73,7 @@ export default function Home() {
           </div>
           <button
             className="bg-blue-500 rounded text-white p-1 text-sm"
-            onClick={() => joinAsHost(meeting.id, meeting.roomName ?? "")}
+            onClick={() => joinAsHost(meeting.id, meeting.title ?? "")}
           >
             Join as Host
           </button>

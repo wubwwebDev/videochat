@@ -1,9 +1,14 @@
 import Head from "next/head";
 import { useEffect, useState, useCallback } from "react";
-import { DyteMeeting } from "dyte-client";
+// import { DyteMeeting } from "dyte-client";
+import { DyteMeeting } from "@dytesdk/react-ui-kit";
 import { useRouter } from "next/router";
+import { useDyteClient } from "@dytesdk/react-web-core";
 
-export default function Meeting({ org, base }) {
+export default function Meeting() {
+  const [meeting, initMeeting] = useDyteClient();
+  const org = "d4a02f53-96de-43c5-b2a5-996d7dfedfef";
+  const base = "https://api.dyte.io/v2";
   const router = useRouter();
   const [auth, setAuth] = useState();
   const [loaded, setLoaded] = useState(false);
@@ -11,6 +16,7 @@ export default function Meeting({ org, base }) {
   const roomName = router.query.roomName;
 
   const onDyteInit = (meeting) => {
+    console.log("thisis meeting s ondyteInit", meeting);
     //meeting ended event
     meeting.on(meeting.Events.meetingEnded, () => {
       sessionStorage.clear();
@@ -19,50 +25,29 @@ export default function Meeting({ org, base }) {
   };
 
   const joinAsParticipant = useCallback(async () => {
-    const joinAsParticipantResp = await fetch("/api/participant", {
-      method: "POST",
-      body: JSON.stringify({
-        meetingId: meetingId,
-      }),
+    const auth1 = sessionStorage.getItem("auth");
+    setAuth(auth1);
+    initMeeting({
+      authToken: auth1,
+      defaults: {
+        audio: false,
+        video: false,
+      },
     });
-    const { auth } = await joinAsParticipantResp.json();
-    sessionStorage.setItem("auth", auth);
-    setAuth(auth);
+    // const joinAsParticipantResp = await fetch("/api/participant", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     meetingId: meetingId,
+    //   }),
+    // });
+    // const { auth } = await joinAsParticipantResp.json();
+    // sessionStorage.setItem("auth", auth);
+    // setAuth(auth);
   }, [meetingId, roomName]);
 
   useEffect(() => {
-    setAuth(sessionStorage.getItem("auth"));
-    setLoaded(true);
+    joinAsParticipant();
   }, []);
 
-  useEffect(() => {
-    if (!auth && loaded) {
-      joinAsParticipant();
-    }
-  }, [auth, loaded]);
-
-  return (
-    <>
-      {auth && (
-        <DyteMeeting
-          onInit={onDyteInit}
-          clientId={org}
-          meetingConfig={{
-            roomName: roomName,
-            authToken: auth,
-            apiBase: base,
-          }}
-        />
-      )}
-    </>
-  );
-}
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      org: process.env.NEXT_PUBLIC_ORG_ID,
-      base: process.env.NEXT_PUBLIC_BASE_URL,
-    }, // will be passed to the page component as props
-  };
+  return <>{auth && <DyteMeeting mode="fixed" meeting={meeting} />}</>;
 }
